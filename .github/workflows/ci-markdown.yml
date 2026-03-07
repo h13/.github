@@ -1,0 +1,27 @@
+name: CI (Markdown)
+
+on:
+  workflow_call:
+    inputs:
+      glob:
+        description: Glob pattern for Markdown files
+        type: string
+        default: "**/*.md"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Apply org markdownlint config
+        run: |
+          if [ ! -f .markdownlint-cli2.yaml ] && [ ! -f .markdownlint-cli2.jsonc ] && [ ! -f .markdownlint.jsonc ]; then
+            curl -fsSL https://raw.githubusercontent.com/h13/.github/main/.markdownlint-cli2.yaml -o .markdownlint-cli2.yaml
+          fi
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: lts/*
+
+      - run: npx markdownlint-cli2 "${{ inputs.glob }}"

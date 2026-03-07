@@ -1,0 +1,58 @@
+name: CI (PHP)
+
+on:
+  workflow_call:
+    inputs:
+      php-version:
+        description: PHP version
+        type: string
+        default: "8.4"
+      php-extensions:
+        description: Additional PHP extensions (comma-separated)
+        type: string
+        default: ""
+      working-directory:
+        description: Working directory for composer/test commands
+        type: string
+        default: "."
+      composer-args:
+        description: Extra arguments for composer install
+        type: string
+        default: ""
+      test-command:
+        description: Test command to run
+        type: string
+        default: "composer test"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - uses: shivammathur/setup-php@d59004228537ca90c8dca680592a08a675bf52b6 # v2
+        with:
+          php-version: ${{ inputs.php-version }}
+          extensions: ${{ inputs.php-extensions }}
+          coverage: none
+          tools: none
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist ${{ inputs.composer-args }}
+
+      - name: Run tests
+        run: ${{ inputs.test-command }}
