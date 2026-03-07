@@ -1,0 +1,24 @@
+# Repo file sync configuration
+# Syncs org-wide config files to target repositories.
+# Requires REPO_SYNC_TOKEN secret (PAT with repo scope).
+#
+# Add repos/files as the org grows. Only files that should be
+# identical across repos belong here. Repo-specific overrides
+# should NOT be synced (they'll be overwritten).
+
+group:
+  # Sync PR template to all active repos
+  pr-template:
+    repos: |
+      h13/gtm-users
+      h13/constraint-engine
+      h13/contract-templates
+      h13/feed-pulse
+      h13/smallbiz-suite
+      h13/fyi
+      h13/nps-platform
+      h13/autoreload.fish
+      h13/anki-manual-ja
+    files:
+      - source: sync/.github/PULL_REQUEST_TEMPLATE.md
+        dest: .github/PULL_REQUEST_TEMPLATE.md

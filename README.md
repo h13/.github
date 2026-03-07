@@ -4,7 +4,7 @@ Default community health files, reusable workflows, and shared linter config for
 
 ## Reusable Workflows
 
-Call from any repo's `ci.yml` via `uses: h13/.github/.github/workflows/<name>@main`:
+Call from any repo's `ci.yml` via `uses: h13/.github/.github/workflows/<name>@v1`:
 
 | Workflow | Stack | Inputs | Description |
 |---|---|---|---|
@@ -23,14 +23,39 @@ on:
   pull_request:
 jobs:
   ci:
-    uses: h13/.github/.github/workflows/ci-node.yml@main
+    uses: h13/.github/.github/workflows/ci-node.yml@v1
 ```
+
+## Versioning
+
+Reusable workflows follow semver via git tags (`v1`, `v1.0.0`, etc.).
+
+- **Non-breaking changes** (bug fixes, dependency updates): `v1` tag moves forward
+- **Breaking changes** (removed inputs, changed behavior): new major `v2`
+- Renovate auto-detects new versions and creates PRs in caller repos
+
+## Composite Actions
+
+| Action | Description |
+|---|---|
+| `actions/apply-org-config` | Download org config file if no local override exists |
+
+Usage: `uses: h13/.github/actions/apply-org-config@v1`
 
 ## Shared Linter Config
 
 - `.markdownlint-cli2.yaml` — Org-wide markdownlint defaults (MD013, MD024, MD060)
-  - Auto-applied by `ci-markdown.yml` if the repo has no local config
+  - Auto-applied by `ci-markdown.yml` via `apply-org-config` action
   - Repos can override by adding their own `.markdownlint-cli2.yaml`
+
+## Automation
+
+| Workflow | Schedule | Description |
+|---|---|---|
+| Compliance Audit | Monthly (1st) | Checks all repos for renovate.json, CI, branch protection |
+| Repo Sync | On push to `sync/` | Syncs org-wide files (PR template, etc.) to all repos |
+
+Repo Sync requires `REPO_SYNC_TOKEN` secret (PAT with `repo` scope).
 
 ## Workflow Templates
 
@@ -58,8 +83,11 @@ h13/dotfiles                      ← 開発環境 + 初期化スクリプト
        └─ generates → .github/workflows/ci.yml     (calls h13/.github reusable workflows)
 
 h13/.github          ← Reusable Workflows + 共有設定 ★ this repo
-  ├─ .github/workflows/ci-{node,php,go,markdown}.yml  (reusable)
+  ├─ .github/workflows/ci-{node,php,go,markdown}.yml  (reusable, versioned)
+  ├─ actions/apply-org-config/                          (composite action)
   ├─ .markdownlint-cli2.yaml                           (org-wide linter config)
+  ├─ compliance-audit.yml                              (monthly audit)
+  ├─ repo-sync.yml + sync/                             (file sync to all repos)
   ├─ workflow-templates/ (one-time copy 用)
   └─ SECURITY.md (全リポに適用)
 
@@ -68,11 +96,11 @@ h13/renovate-config  ← Renovate 共有プリセット
   └─ terraform.json  (Terraform あり向け)
 ```
 
-**SHA ピンの同期**: `repo-init.sh` と `workflow-templates/` の Actions SHA は同じ値を使う。
-Renovate の `helpers:pinGithubActionDigests` が以降の更新を自動化する。
+**SHA ピンは reusable workflow 内で一元管理**。Renovate の `helpers:pinGithubActionDigests` が自動更新。
+各リポの caller は `@v1` タグを参照するだけ。
 
 | リポ | 役割 |
 |---|---|
 | [h13/dotfiles](https://github.com/h13/dotfiles) | 開発環境 + `repo-init.sh` |
 | [h13/renovate-config](https://github.com/h13/renovate-config) | Renovate 共有プリセット |
-| [h13/.github](https://github.com/h13/.github) | CI テンプレート + SECURITY.md |
+| [h13/.github](https://github.com/h13/.github) | Reusable Workflows + 共有設定 + Automation |

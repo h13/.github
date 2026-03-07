@@ -1,0 +1,21 @@
+name: Apply org config
+description: Download org-wide config file from h13/.github if no local override exists
+
+inputs:
+  config-file:
+    description: Config filename to check and apply (e.g. .markdownlint-cli2.yaml)
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Apply org config if no local override
+      shell: bash
+      run: |
+        if [ -f "${{ inputs.config-file }}" ]; then
+          echo "Local config found: ${{ inputs.config-file }} (skipping org default)"
+        else
+          curl -fsSL "https://raw.githubusercontent.com/h13/.github/main/${{ inputs.config-file }}" \
+            -o "${{ inputs.config-file }}"
+          echo "Applied org config: ${{ inputs.config-file }}"
+        fi

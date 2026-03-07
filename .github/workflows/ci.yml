@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/ci-*.yml"
+      - "actions/**"
+      - ".markdownlint-cli2.yaml"
+  pull_request:
+    paths:
+      - ".github/workflows/ci-*.yml"
+      - "actions/**"
+      - ".markdownlint-cli2.yaml"
+
+jobs:
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Install actionlint
+        run: bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-bash.sh)
+
+      - name: Lint workflows
+        run: actionlint
+
+  test-markdown:
+    uses: ./.github/workflows/ci-markdown.yml
+    with:
+      glob: "README.md"
