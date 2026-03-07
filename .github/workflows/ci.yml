@@ -4,12 +4,12 @@ on:
   push:
     branches: [main]
     paths:
-      - ".github/workflows/ci-*.yml"
+      - ".github/workflows/**"
       - "actions/**"
       - ".markdownlint-cli2.yaml"
   pull_request:
     paths:
-      - ".github/workflows/ci-*.yml"
+      - ".github/workflows/**"
       - "actions/**"
       - ".markdownlint-cli2.yaml"
 
@@ -19,11 +19,10 @@ jobs:
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
-      - name: Install actionlint
-        run: bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-bash.sh)
-
-      - name: Lint workflows
-        run: actionlint
+      - name: Install and run actionlint
+        run: |
+          bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-bash.sh)
+          ./actionlint
 
   test-markdown:
     uses: ./.github/workflows/ci-markdown.yml
