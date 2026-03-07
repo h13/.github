@@ -1,0 +1,6 @@
+{
+  "name": "CI (Go)",
+  "description": "Test and lint a Go project.",
+  "iconName": "go",
+  "categories": ["Go", "CI"]
+}

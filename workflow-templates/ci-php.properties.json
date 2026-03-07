@@ -1,0 +1,6 @@
+{
+  "name": "CI (PHP)",
+  "description": "Install dependencies and run tests for a PHP project.",
+  "iconName": "php",
+  "categories": ["PHP", "CI"]
+}

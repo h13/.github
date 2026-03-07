@@ -1,0 +1,6 @@
+{
+  "name": "CI (Markdown)",
+  "description": "Lint Markdown files with markdownlint-cli2.",
+  "iconName": "markdown",
+  "categories": ["Markdown", "CI"]
+}

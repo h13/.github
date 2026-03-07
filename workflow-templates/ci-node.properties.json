@@ -1,0 +1,6 @@
+{
+  "name": "CI (Node.js)",
+  "description": "Lint, test, and typecheck a Node.js project.",
+  "iconName": "nodejs",
+  "categories": ["Node.js", "CI"]
+}
