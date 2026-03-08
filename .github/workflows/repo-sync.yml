@@ -8,6 +8,9 @@ on:
       - ".github/sync.yml"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -21,3 +24,4 @@ jobs:
           PR_LABELS: repo-sync
           COMMIT_PREFIX: "chore: "
           COMMIT_BODY: "Synced from h13/.github"
+          BRANCH_PREFIX: "chore/repo-sync-"
