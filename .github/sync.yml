@@ -2,9 +2,8 @@
 # Syncs org-wide config files to target repositories.
 # Requires REPO_SYNC_TOKEN secret (PAT with repo scope).
 #
-# Add repos/files as the org grows. Only files that should be
-# identical across repos belong here. Repo-specific overrides
-# should NOT be synced (they'll be overwritten).
+# Add new repos here when created. The compliance-audit workflow
+# will flag repos missing from this list.
 
 group:
   # Sync PR template to all active repos
@@ -14,11 +13,13 @@ group:
       h13/constraint-engine
       h13/contract-templates
       h13/feed-pulse
+      h13/feed-pulse-ts
       h13/smallbiz-suite
       h13/fyi
       h13/nps-platform
       h13/autoreload.fish
       h13/anki-manual-ja
+      h13/diary
     files:
       - source: sync/.github/PULL_REQUEST_TEMPLATE.md
         dest: .github/PULL_REQUEST_TEMPLATE.md
