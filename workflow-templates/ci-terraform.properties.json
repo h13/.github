@@ -1,0 +1,6 @@
+{
+  "name": "CI (Terraform)",
+  "description": "Validate and lint a Terraform project.",
+  "iconName": "terraform",
+  "categories": ["Terraform", "CI"]
+}
