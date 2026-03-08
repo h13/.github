@@ -4,6 +4,7 @@
 #
 # Add new repos here when created. The compliance-audit workflow
 # will flag repos missing from this list.
+# Exclude archived repos (they are read-only).
 
 h13/gtm-users:
   - source: sync/.github/PULL_REQUEST_TEMPLATE.md
@@ -42,9 +43,5 @@ h13/autoreload.fish:
     dest: .github/PULL_REQUEST_TEMPLATE.md
 
 h13/anki-manual-ja:
-  - source: sync/.github/PULL_REQUEST_TEMPLATE.md
-    dest: .github/PULL_REQUEST_TEMPLATE.md
-
-h13/diary:
   - source: sync/.github/PULL_REQUEST_TEMPLATE.md
     dest: .github/PULL_REQUEST_TEMPLATE.md
