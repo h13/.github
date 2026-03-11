@@ -6,15 +6,5 @@ on:
   pull_request:
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-        with:
-          node-version: lts/*
-
-      - run: npm ci
-      - run: npm run lint
-      - run: npm test
+  ci:
+    uses: h13/.github/.github/workflows/ci-node.yml@c62d0eebefffc0d3ca156453f0fb7cd3dcb94f4c # main

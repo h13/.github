@@ -1,47 +1,12 @@
-# Repo file sync configuration
-# Syncs org-wide config files to target repositories.
-# Requires REPO_SYNC_TOKEN secret (PAT with repo scope).
-#
-# Add new repos here when created. The compliance-audit workflow
-# will flag repos missing from this list.
-# Exclude archived repos (they are read-only).
+# Repo file sync — file mappings only.
+# The repo list is resolved dynamically at runtime
+# (all non-archived h13 repos, excluding .github itself).
+# See .github/workflows/repo-sync.yml for details.
 
-h13/gtm-users:
+files:
   - source: sync/.github/PULL_REQUEST_TEMPLATE.md
     dest: .github/PULL_REQUEST_TEMPLATE.md
-
-h13/constraint-engine:
-  - source: sync/.github/PULL_REQUEST_TEMPLATE.md
-    dest: .github/PULL_REQUEST_TEMPLATE.md
-
-h13/contract-templates:
-  - source: sync/.github/PULL_REQUEST_TEMPLATE.md
-    dest: .github/PULL_REQUEST_TEMPLATE.md
-
-h13/feed-pulse:
-  - source: sync/.github/PULL_REQUEST_TEMPLATE.md
-    dest: .github/PULL_REQUEST_TEMPLATE.md
-
-h13/feed-pulse-ts:
-  - source: sync/.github/PULL_REQUEST_TEMPLATE.md
-    dest: .github/PULL_REQUEST_TEMPLATE.md
-
-h13/smallbiz-suite:
-  - source: sync/.github/PULL_REQUEST_TEMPLATE.md
-    dest: .github/PULL_REQUEST_TEMPLATE.md
-
-h13/fyi:
-  - source: sync/.github/PULL_REQUEST_TEMPLATE.md
-    dest: .github/PULL_REQUEST_TEMPLATE.md
-
-h13/nps-platform:
-  - source: sync/.github/PULL_REQUEST_TEMPLATE.md
-    dest: .github/PULL_REQUEST_TEMPLATE.md
-
-h13/autoreload.fish:
-  - source: sync/.github/PULL_REQUEST_TEMPLATE.md
-    dest: .github/PULL_REQUEST_TEMPLATE.md
-
-h13/anki-manual-ja:
-  - source: sync/.github/PULL_REQUEST_TEMPLATE.md
-    dest: .github/PULL_REQUEST_TEMPLATE.md
+  - source: sync/.github/ISSUE_TEMPLATE/bug_report.yml
+    dest: .github/ISSUE_TEMPLATE/bug_report.yml
+  - source: sync/.github/ISSUE_TEMPLATE/feature_request.yml
+    dest: .github/ISSUE_TEMPLATE/feature_request.yml

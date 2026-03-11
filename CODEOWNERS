@@ -1,0 +1,3 @@
+# Default owner for all files in h13 repositories.
+# Repos can override this by adding their own CODEOWNERS file.
+* @h13

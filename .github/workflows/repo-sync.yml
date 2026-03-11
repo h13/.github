@@ -5,7 +5,6 @@ on:
     branches: [main]
     paths:
       - "sync/**"
-      - ".github/sync.yml"
   workflow_dispatch:
 
 permissions:
@@ -16,6 +15,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Generate sync config from all org repos
+        env:
+          GH_TOKEN: ${{ secrets.REPO_SYNC_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          REPOS=$(gh repo list h13 --no-archived --json name -q '.[].name' \
+            | grep -v '^\\.github$' \
+            | sort \
+            | awk '{printf "      h13/%s\n", $0}')
+
+          cat > .github/sync.yml <<SYNC
+          group:
+            - repos: |
+          ${REPOS}
+              files:
+                - source: sync/.github/PULL_REQUEST_TEMPLATE.md
+                  dest: .github/PULL_REQUEST_TEMPLATE.md
+                - source: sync/.github/ISSUE_TEMPLATE/bug_report.yml
+                  dest: .github/ISSUE_TEMPLATE/bug_report.yml
+                - source: sync/.github/ISSUE_TEMPLATE/feature_request.yml
+                  dest: .github/ISSUE_TEMPLATE/feature_request.yml
+          SYNC
+          cat .github/sync.yml
 
       - uses: BetaHuhn/repo-file-sync-action@8d7590ac8bf240686428959b8fd060a34d508b3f # v1.9.4
         with:

@@ -27,7 +27,7 @@ jobs:
           for repo in $REPOS; do
             FINDINGS=""
 
-            # Check renovate.json
+            # Check renovate.json (Renovate-only policy — no Dependabot)
             if ! gh api "repos/h13/$repo/contents/renovate.json" --silent 2>/dev/null; then
               FINDINGS="${FINDINGS}\n  - [ ] Missing \`renovate.json\`"
             fi
@@ -41,6 +41,23 @@ jobs:
             DEFAULT_BRANCH=$(gh api "repos/h13/$repo" -q '.default_branch' 2>/dev/null || echo "main")
             if ! gh api "repos/h13/$repo/branches/$DEFAULT_BRANCH/protection" --silent 2>/dev/null; then
               FINDINGS="${FINDINGS}\n  - [ ] No branch protection on \`$DEFAULT_BRANCH\`"
+            fi
+
+            # Check LICENSE
+            if ! gh api "repos/h13/$repo/contents/LICENSE" --silent 2>/dev/null; then
+              FINDINGS="${FINDINGS}\n  - [ ] Missing \`LICENSE\`"
+            fi
+
+            # Check CODEOWNERS
+            HAS_CODEOWNERS=false
+            for path in "CODEOWNERS" ".github/CODEOWNERS" "docs/CODEOWNERS"; do
+              if gh api "repos/h13/$repo/contents/$path" --silent 2>/dev/null; then
+                HAS_CODEOWNERS=true
+                break
+              fi
+            done
+            if [ "$HAS_CODEOWNERS" = "false" ]; then
+              FINDINGS="${FINDINGS}\n  - [ ] Missing \`CODEOWNERS\`"
             fi
 
             if [ -n "$FINDINGS" ]; then
