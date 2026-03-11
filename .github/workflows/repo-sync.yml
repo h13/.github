@@ -27,18 +27,20 @@ jobs:
             | sort \
             | awk '{printf "      h13/%s\n", $0}')
 
-          cat > .github/sync.yml <<SYNC
-          group:
-            - repos: |
-          ${REPOS}
-              files:
-                - source: sync/.github/PULL_REQUEST_TEMPLATE.md
-                  dest: .github/PULL_REQUEST_TEMPLATE.md
-                - source: sync/.github/ISSUE_TEMPLATE/bug_report.yml
-                  dest: .github/ISSUE_TEMPLATE/bug_report.yml
-                - source: sync/.github/ISSUE_TEMPLATE/feature_request.yml
-                  dest: .github/ISSUE_TEMPLATE/feature_request.yml
-          SYNC
+          {
+            echo "group:"
+            echo "  - repos: |"
+            echo "$REPOS"
+            echo "    files:"
+            echo "      - source: sync/.github/PULL_REQUEST_TEMPLATE.md"
+            echo "        dest: .github/PULL_REQUEST_TEMPLATE.md"
+            echo "      - source: sync/.github/ISSUE_TEMPLATE/bug_report.yml"
+            echo "        dest: .github/ISSUE_TEMPLATE/bug_report.yml"
+            echo "      - source: sync/.github/ISSUE_TEMPLATE/feature_request.yml"
+            echo "        dest: .github/ISSUE_TEMPLATE/feature_request.yml"
+          } > .github/sync.yml
+
+          echo "Generated sync config:"
           cat .github/sync.yml
 
       - uses: BetaHuhn/repo-file-sync-action@8d7590ac8bf240686428959b8fd060a34d508b3f # v1.9.4
