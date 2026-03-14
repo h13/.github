@@ -1,8 +1,11 @@
+<!-- markdownlint-disable MD041 -->
+
 ### h13
 
 Chief Information Architect (CIA) at Bengo4.com, Inc.
 
 Designing how information connects — across systems, teams, and AI.
+
 The right constraints expand what's possible.
 
 #### Now
