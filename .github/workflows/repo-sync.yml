@@ -22,15 +22,20 @@ jobs:
         run: |
           set -euo pipefail
 
-          REPOS=$(gh repo list h13 --no-archived --json name -q '.[].name' \
+          ALL_REPOS=$(gh repo list h13 --no-archived --json name -q '.[].name' \
             | grep -v '^\\.github$' \
+            | sort \
+            | awk '{printf "      h13/%s\n", $0}')
+
+          NODE_REPOS=$(gh repo list h13 --no-archived --json name,primaryLanguage \
+            -q '.[] | select(.primaryLanguage.name == "TypeScript" or .primaryLanguage.name == "JavaScript") | .name' \
             | sort \
             | awk '{printf "      h13/%s\n", $0}')
 
           {
             echo "group:"
             echo "  - repos: |"
-            echo "$REPOS"
+            echo "$ALL_REPOS"
             echo "    files:"
             echo "      - source: sync/.github/PULL_REQUEST_TEMPLATE.md"
             echo "        dest: .github/PULL_REQUEST_TEMPLATE.md"
@@ -38,6 +43,13 @@ jobs:
             echo "        dest: .github/ISSUE_TEMPLATE/bug_report.yml"
             echo "      - source: sync/.github/ISSUE_TEMPLATE/feature_request.yml"
             echo "        dest: .github/ISSUE_TEMPLATE/feature_request.yml"
+            if [ -n "$NODE_REPOS" ]; then
+              echo "  - repos: |"
+              echo "$NODE_REPOS"
+              echo "    files:"
+              echo "      - source: sync/.github/workflows/publish.yml"
+              echo "        dest: .github/workflows/publish.yml"
+            fi
           } > .github/sync.yml
 
           echo "Generated sync config:"
