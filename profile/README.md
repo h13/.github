@@ -3,12 +3,21 @@
 Chief Information Architect (CIA) at Bengo4.com, Inc.
 
 Designing how information connects — across systems, teams, and AI.
-Interested in how the right constraints expand what's possible.
+The right constraints expand what's possible.
 
-Currently building:
-- [apps-script-fleet](https://github.com/h13/apps-script-fleet) — Infrastructure for scaling Google Apps Script across organizations
+#### Now
+
 - [constraint-engine](https://github.com/h13/constraint-engine) — Recording the delta between AI proposals and human decisions
+- [apps-script-fleet](https://github.com/h13/apps-script-fleet) — Scaling Google Apps Script across organizations
 
-Building tools and infrastructure for modern web development.
+#### Beliefs
 
-[![](https://img.shields.io/badge/dotfiles-chezmoi-blue)](https://github.com/h13/dotfiles)
+- Information architecture is a design discipline, not just taxonomy
+- Constraints are generative — they don't limit, they clarify
+- The best infrastructure is the kind you forget is there
+
+#### Infrastructure
+
+- [.github](https://github.com/h13/.github) — Reusable CI workflows, compliance audit, org health files
+- [dotfiles](https://github.com/h13/dotfiles) — Dev environment + repo scaffolding (chezmoi)
+- [renovate-config](https://github.com/h13/renovate-config) — Shared dependency presets
