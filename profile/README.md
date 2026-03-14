@@ -2,7 +2,7 @@
 
 ### h13
 
-Chief Information Architect (CIA) at Bengo4.com, Inc.
+CIA (Chief Information Architect) at Bengo4.com, Inc.
 
 Designing how information connects — across systems, teams, and AI.
 
