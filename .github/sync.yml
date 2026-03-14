@@ -4,9 +4,5 @@
 # See .github/workflows/repo-sync.yml for details.
 
 files:
-  - source: sync/.github/PULL_REQUEST_TEMPLATE.md
-    dest: .github/PULL_REQUEST_TEMPLATE.md
-  - source: sync/.github/ISSUE_TEMPLATE/bug_report.yml
-    dest: .github/ISSUE_TEMPLATE/bug_report.yml
-  - source: sync/.github/ISSUE_TEMPLATE/feature_request.yml
-    dest: .github/ISSUE_TEMPLATE/feature_request.yml
+  - source: sync/.github/workflows/publish.yml
+    dest: .github/workflows/publish.yml
