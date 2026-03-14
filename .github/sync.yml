@@ -1,8 +1,0 @@
-# Repo file sync — file mappings only.
-# The repo list is resolved dynamically at runtime
-# (all non-archived h13 repos, excluding .github itself).
-# See .github/workflows/repo-sync.yml for details.
-
-files:
-  - source: sync/.github/workflows/publish.yml
-    dest: .github/workflows/publish.yml

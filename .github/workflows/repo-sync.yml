@@ -16,40 +16,29 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
-      - name: Generate sync config from all org repos
+      - name: Generate sync config from Node.js repos
         env:
           GH_TOKEN: ${{ secrets.REPO_SYNC_TOKEN }}
         run: |
           set -euo pipefail
-
-          ALL_REPOS=$(gh repo list h13 --no-archived --json name -q '.[].name' \
-            | grep -v '^\\.github$' \
-            | sort \
-            | awk '{printf "      h13/%s\n", $0}')
 
           NODE_REPOS=$(gh repo list h13 --no-archived --json name,primaryLanguage \
             -q '.[] | select(.primaryLanguage.name == "TypeScript" or .primaryLanguage.name == "JavaScript") | .name' \
             | sort \
             | awk '{printf "      h13/%s\n", $0}')
 
+          if [ -z "$NODE_REPOS" ]; then
+            echo "No Node.js repos found. Skipping sync."
+            exit 0
+          fi
+
           {
             echo "group:"
             echo "  - repos: |"
-            echo "$ALL_REPOS"
+            echo "$NODE_REPOS"
             echo "    files:"
-            echo "      - source: sync/.github/PULL_REQUEST_TEMPLATE.md"
-            echo "        dest: .github/PULL_REQUEST_TEMPLATE.md"
-            echo "      - source: sync/.github/ISSUE_TEMPLATE/bug_report.yml"
-            echo "        dest: .github/ISSUE_TEMPLATE/bug_report.yml"
-            echo "      - source: sync/.github/ISSUE_TEMPLATE/feature_request.yml"
-            echo "        dest: .github/ISSUE_TEMPLATE/feature_request.yml"
-            if [ -n "$NODE_REPOS" ]; then
-              echo "  - repos: |"
-              echo "$NODE_REPOS"
-              echo "    files:"
-              echo "      - source: sync/.github/workflows/publish.yml"
-              echo "        dest: .github/workflows/publish.yml"
-            fi
+            echo "      - source: sync/.github/workflows/publish.yml"
+            echo "        dest: .github/workflows/publish.yml"
           } > .github/sync.yml
 
           echo "Generated sync config:"

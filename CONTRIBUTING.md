@@ -23,6 +23,4 @@ All repositories use [Renovate](https://docs.renovatebot.com/) for automated dep
 
 ## Reporting Issues
 
-- **Bugs**: Use the "Bug report" issue template
-- **Features**: Use the "Feature request" issue template
 - **Security**: See [SECURITY.md](SECURITY.md) — do not open a public issue
