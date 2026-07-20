@@ -58,6 +58,20 @@ jobs:
               FINDINGS="${FINDINGS}\n  - [ ] No branch protection on \`$branch\`"
             fi
 
+            # Check oxlint config (TS/JS repos should have migrated)
+            if echo "$TREE" | grep -qE "\.(ts|tsx|js|jsx)$"; then
+              if ! echo "$TREE" | grep -qx ".oxlintrc.json"; then
+                FINDINGS="${FINDINGS}\n  - [ ] Missing \`.oxlintrc.json\` (oxlint migration)"
+              fi
+            fi
+
+            # Check pnpm-workspace.yaml (pnpm 11 migration)
+            if echo "$TREE" | grep -qx "package.json"; then
+              if ! echo "$TREE" | grep -qx "pnpm-workspace.yaml"; then
+                FINDINGS="${FINDINGS}\n  - [ ] Missing \`pnpm-workspace.yaml\` (pnpm 11 migration)"
+              fi
+            fi
+
             if [ -n "$FINDINGS" ]; then
               REPORT="${REPORT}\n### $repo\n$FINDINGS\n"
               ISSUES_FOUND=$((ISSUES_FOUND + 1))
