@@ -7,4 +7,4 @@ on:
 
 jobs:
   ci:
-    uses: h13/.github/.github/workflows/ci-markdown.yml@ed7cb040c504b6000a02656ef03fa9bfd14ac3da # main
+    uses: h13/.github/.github/workflows/ci-markdown.yml@718785f3f413cb1de451ffd2fcb4377f86c134b8 # main
