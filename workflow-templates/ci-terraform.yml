@@ -7,4 +7,4 @@ on:
 
 jobs:
   ci:
-    uses: h13/.github/.github/workflows/ci-terraform.yml@defac1ead0a45620b6380999a64aeed375123224 # main
+    uses: h13/.github/.github/workflows/ci-terraform.yml@48a1dcc7b6dec9c8810642e694e6171ed2cc68a6 # main
