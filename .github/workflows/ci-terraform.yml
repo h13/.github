@@ -7,6 +7,10 @@ on:
         description: Terraform version
         type: string
         default: "latest"
+      working-directory:
+        description: Directory containing the Terraform configuration
+        type: string
+        default: "."
 
 permissions:
   contents: read
@@ -14,6 +18,9 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -27,6 +34,9 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
