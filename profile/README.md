@@ -11,7 +11,15 @@ The right constraints expand what's possible.
 #### Now
 
 - [constraint-engine](https://github.com/h13/constraint-engine) — Recording the delta between AI proposals and human decisions
-- [apps-script-fleet](https://github.com/h13/apps-script-fleet) — Scaling Google Apps Script across organizations
+- [nps-platform](https://github.com/h13/nps-platform) — NPS measurement platform on Cloudflare Workers + D1
+
+#### Templates
+
+Bringing Git and CI/CD discipline to platforms usually managed by hand:
+
+- [apps-script-fleet](https://github.com/h13/apps-script-fleet) — Scaling Google Apps Script across organizations; four org repos built from it
+- [servicenow-app-template](https://github.com/h13/servicenow-app-template) — Source-driven ServiceNow app development with CI/CD
+- [salesforce-metadata-template](https://github.com/h13/salesforce-metadata-template) — Salesforce metadata with Git and CI/CD, for both GUI-based and AI-agent-driven development
 
 #### Beliefs
 
