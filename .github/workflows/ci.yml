@@ -6,12 +6,14 @@ on:
     paths:
       - ".github/workflows/**"
       - "actions/**"
+      - "profile/**"
       - "sync/**"
       - ".markdownlint-cli2.yaml"
   pull_request:
     paths:
       - ".github/workflows/**"
       - "actions/**"
+      - "profile/**"
       - "sync/**"
       - ".markdownlint-cli2.yaml"
 
@@ -33,4 +35,4 @@ jobs:
   test-markdown:
     uses: ./.github/workflows/ci-markdown.yml
     with:
-      glob: "{README,CONTRIBUTING,SECURITY,sync/**}.md"
+      glob: "{README,CONTRIBUTING,SECURITY,profile/**,sync/**}.md"
