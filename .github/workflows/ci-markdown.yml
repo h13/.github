@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: h13/.github/actions/apply-org-config@7e9d44f7b08804fc568c0ff7a89940afc059a60c # main
+      - uses: h13/.github/actions/apply-org-config@ff02b1bfd495f48f3c6b825145f9485ae80e98c4 # main
         with:
           config-file: .markdownlint-cli2.yaml
 
