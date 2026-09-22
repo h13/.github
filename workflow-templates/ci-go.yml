@@ -7,4 +7,4 @@ on:
 
 jobs:
   ci:
-    uses: h13/.github/.github/workflows/ci-go.yml@f6fcf9f19ad292ead08ea26926a178612cd7ba60 # main
+    uses: h13/.github/.github/workflows/ci-go.yml@ae0479f602b0926169cd190639618edf10ad4dea # main
