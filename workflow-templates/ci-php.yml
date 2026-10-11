@@ -7,4 +7,4 @@ on:
 
 jobs:
   ci:
-    uses: h13/.github/.github/workflows/ci-php.yml@1b9904ae5924dd66d2730dcd5d52cb39d82e8993 # main
+    uses: h13/.github/.github/workflows/ci-php.yml@aa06a22461174c4020b44b015223425c059b92c2 # main
