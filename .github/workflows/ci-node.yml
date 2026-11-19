@@ -6,7 +6,8 @@ on:
       node-version:
         description: Node.js version
         type: string
-        default: "24"
+        # renovate: datasource=node-version depName=node
+        default: "26"
 
 permissions:
   contents: read
